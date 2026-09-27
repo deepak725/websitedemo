@@ -68,6 +68,73 @@
   }
   .logo-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--sienna); display: inline-block; flex-shrink: 0; }
 
+  .nav-links { display: none; align-items: center; gap: 28px; }
+  .nav-links a {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+    transition: color 150ms ease;
+  }
+  .nav-links a:hover { color: var(--fg); }
+
+  .nav-toggle {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+    width: 32px;
+    height: 32px;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+  }
+  .nav-toggle span {
+    display: block;
+    width: 20px;
+    height: 2px;
+    background: var(--fg);
+    border-radius: 1px;
+    transition: transform 200ms ease, opacity 200ms ease;
+  }
+  .nav-toggle[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+  .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+  .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+  .mobile-menu {
+    max-height: 0;
+    overflow: hidden;
+    border-top: 0 solid var(--border);
+    transition: max-height 220ms ease;
+  }
+  .mobile-menu.is-open {
+    max-height: 220px;
+    border-top-width: 1px;
+  }
+  .mobile-menu a {
+    display: block;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    font-weight: 500;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+    text-decoration: none;
+    padding: 14px 24px;
+  }
+  .mobile-menu a:hover { color: var(--fg); }
+
+  @media (min-width: 641px) {
+    .nav-links { display: flex; }
+    .nav-toggle { display: none; }
+    .mobile-menu { display: none; }
+  }
+
   .btn {
     display: inline-flex;
     align-items: center;
@@ -117,14 +184,15 @@
     box-decoration-break: clone;
     -webkit-box-decoration-break: clone;
   }
+  .highlight-ai {
+    color: var(--gold);
+    font-weight: 600;
+  }
 
   /* HERO */
   .hero {
-    padding-top: 88px;
-    min-height: 100svh;
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
+    padding-top: 56px;
+    padding-bottom: 56px;
   }
   .hero .wrap { width: 100%; }
   .hero h1 { font-size: clamp(30px, 4.5vw, 44px); max-width: 700px; }
@@ -135,6 +203,15 @@
   /* Two-column desktop layout for hero + philosophy graphics */
   .hero-image, .philosophy-image { display: none; }
   @media (min-width: 1024px) {
+    .wrap { max-width: 1160px; }
+    .hero {
+      padding-top: 88px;
+      padding-bottom: 88px;
+      min-height: 100svh;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+    }
     .wrap.hero-flex, .wrap.philosophy-flex { max-width: 1160px; }
     header .wrap { max-width: 1160px; }
     .hero-flex, .philosophy-flex {
@@ -277,6 +354,70 @@
     text-align: center;
   }
 
+  /* BENEFITS */
+  .benefits-head { margin-bottom: 8px; }
+  .benefits-head h2 { font-size: 26px; }
+
+  .benefits-list {
+    margin-top: 32px;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  .benefit-row {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+  }
+  @media (min-width: 641px) {
+    .benefit-row { padding: 22px 0; gap: 6px; }
+  }
+  .benefit-row:last-child { border-bottom: none; }
+  .benefit-num {
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--sienna);
+    letter-spacing: 0.05em;
+  }
+  @media (min-width: 641px) {
+    .benefit-row {
+      display: grid;
+      grid-template-columns: 48px 240px 1fr;
+      gap: 24px;
+      align-items: baseline;
+    }
+  }
+  .benefit-title {
+    font-family: 'IBM Plex Sans', sans-serif;
+    font-weight: 600;
+    font-size: 15.5px;
+  }
+  .benefit-desc { color: var(--muted); font-size: 14px; }
+
+  /* HOW IT WORKS */
+  .mini-steps {
+    margin: 24px auto 0;
+    max-width: 480px;
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+  .mini-step {
+    display: inline-flex;
+    align-items: center;
+    gap: 7px;
+    font-family: 'IBM Plex Mono', monospace;
+    font-size: 12px;
+    color: var(--muted);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 7px 14px;
+  }
+  .mini-step .num { color: var(--sienna); font-weight: 600; }
+
   .reveal {
     opacity: 0;
     transform: translateY(18px);
@@ -288,8 +429,21 @@
 <body>
 
 <header>
-  <div class="wrap">
+  <div class="wrap" style="display:flex; align-items:center; justify-content:space-between;">
     <div class="logo"><span class="logo-dot"></span>Percept</div>
+    <nav class="nav-links">
+      <a href="#products">Products</a>
+      <a href="#benefits">Why Us</a>
+      <a href="#contact">Contact</a>
+    </nav>
+    <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+  <div class="mobile-menu" id="mobileMenu">
+    <a href="#products">Products</a>
+    <a href="#benefits">Why Us</a>
+    <a href="#contact">Contact</a>
   </div>
 </header>
 
@@ -297,7 +451,7 @@
   <div class="wrap hero-flex">
     <div class="hero-text fade-in-load">
       <h1>Help your shareholders understand you — before they <span class="highlight">misread</span> you.</h1>
-      <p class="lede">Percept turns disclosures and stock behaviour into plain, neutral reading, so investors form real conviction instead of reacting to noise.</p>
+      <p class="lede">Percept <span class="highlight-ai">AI</span> turns disclosures and stock behaviour into plain, neutral reading, so investors form real conviction instead of reacting to noise.</p>
       <div class="hero-actions">
         <a class="btn btn-primary" href="#contact">Get Started</a>
       </div>
@@ -332,7 +486,7 @@
       <div class="product-card reveal" style="transition-delay:0ms;">
         <span class="product-tag">Announcement Intelligence</span>
         <h3>Disclosures, decoded.</h3>
-        <p class="purpose">A neutral, plain-language read of every announcement — quick enough to skim, deep enough to trust.</p>
+        <p class="purpose">A neutral, plain-language read of every announcement, drafted with <span class="highlight-ai">AI</span> and checked by our team — quick enough to skim, deep enough to trust.</p>
         <div class="tags">
           <span class="tag">Quick scoop + deep dive</span>
           <span class="tag">English &amp; Hindi</span>
@@ -343,7 +497,7 @@
       <div class="product-card reveal" style="transition-delay:120ms;">
         <span class="product-tag">Price Pulse</span>
         <h3>See the move. Know if it's real.</h3>
-        <p class="purpose">Tracks your stock against index, sector, and peers — so a promoter can tell a genuine shift from noise, not just a number that moved.</p>
+        <p class="purpose"><span class="highlight-ai">AI</span>-surfaced signals track your stock against index, sector, and peers — so a promoter can tell a genuine shift from noise, not just a number that moved.</p>
         <div class="tags">
           <span class="tag">Daily &amp; weekly snapshots</span>
           <span class="tag">Shareholding changes</span>
@@ -354,12 +508,48 @@
   </div>
 </section>
 
+<section id="benefits">
+  <div class="wrap">
+    <div class="benefits-head">
+      <div class="eyebrow reveal" style="transition-delay:0ms;"><span class="dot"></span>WHY PERCEPT</div>
+      <h2 class="reveal" style="transition-delay:80ms;">What changes once you start.</h2>
+    </div>
+    <div class="benefits-list">
+      <div class="benefit-row reveal" style="transition-delay:0ms;">
+        <div class="benefit-num">01</div>
+        <div class="benefit-title">Direct shareholder trust</div>
+        <div class="benefit-desc">A real, ongoing relationship with your shareholders — not a one-off disclosure filed and forgotten.</div>
+      </div>
+      <div class="benefit-row reveal" style="transition-delay:80ms;">
+        <div class="benefit-num">02</div>
+        <div class="benefit-title">A promoter who stays informed</div>
+        <div class="benefit-desc">Daily data and summaries, so capital allocation decisions come from data, not sentiment.</div>
+      </div>
+      <div class="benefit-row reveal" style="transition-delay:160ms;">
+        <div class="benefit-num">03</div>
+        <div class="benefit-title">Fairer price discovery</div>
+        <div class="benefit-desc">Investors with real conviction don't panic sell — reducing the volatility misread disclosures cause.</div>
+      </div>
+      <div class="benefit-row reveal" style="transition-delay:240ms;">
+        <div class="benefit-num">04</div>
+        <div class="benefit-title">Gets smarter every year</div>
+        <div class="benefit-desc">Backed by <span class="highlight-ai">AI</span> that learns your company more deeply over time, and gets sharper across every company we work with.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <section class="cta" id="contact">
   <div class="wrap">
     <div class="eyebrow reveal" style="justify-content:center; transition-delay:0ms;"><span class="dot"></span>GET STARTED</div>
-    <h2 class="reveal" style="transition-delay:80ms;">Better informed promoters. Calmer shareholders.</h2>
+    <h2 class="reveal" style="transition-delay:80ms;">Getting started is simple.</h2>
     <p class="lede reveal" style="transition-delay:160ms;">Leave your details — we'll take it from there.</p>
-    <form class="contact-form reveal" style="transition-delay:240ms;" onsubmit="return false;">
+    <div class="mini-steps reveal" style="transition-delay:220ms;">
+      <span class="mini-step"><span class="num">01</span>Onboarding call</span>
+      <span class="mini-step"><span class="num">02</span>30-day check-in</span>
+      <span class="mini-step"><span class="num">03</span>Ongoing support</span>
+    </div>
+    <form class="contact-form reveal" style="transition-delay:280ms;" onsubmit="return false;">
       <div>
         <label for="email">Work email</label>
         <input type="email" id="email" name="email" placeholder="you@company.com" required>
@@ -398,5 +588,22 @@
   }
 </script>
 
+<script>
+  (function () {
+    var btn = document.getElementById('navToggle');
+    var menu = document.getElementById('mobileMenu');
+    if (!btn || !menu) return;
+    btn.addEventListener('click', function () {
+      var open = menu.classList.toggle('is-open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
+    });
+    menu.querySelectorAll('a').forEach(function (a) {
+      a.addEventListener('click', function () {
+        menu.classList.remove('is-open');
+        btn.setAttribute('aria-expanded', 'false');
+      });
+    });
+  })();
+</script>
 </body>
 </html>
